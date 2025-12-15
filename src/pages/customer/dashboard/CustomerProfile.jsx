@@ -748,14 +748,15 @@ export default function CustomerProfile() {
           )}
 
           {/* Security Tab */}
+          {/* Security Tab */}
           {activeTab === "security" && (
             <div className="space-y-6">
               {/* Change Password */}
               <div
-                className="p-6 rounded-xl"
+                className="p-4 sm:p-6 rounded-xl"
                 style={{ backgroundColor: COLORS.gray[50] }}
               >
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
                   <div>
                     <h3
                       className="text-lg font-bold mb-1"
@@ -769,7 +770,7 @@ export default function CustomerProfile() {
                   </div>
                   <button
                     onClick={() => setShowPasswordModal(true)}
-                    className="px-4 py-2 rounded-lg text-white font-semibold hover:shadow-lg transition-all flex items-center space-x-2"
+                    className="w-full sm:w-auto px-4 py-2 rounded-lg text-white font-semibold hover:shadow-lg transition-all flex items-center justify-center space-x-2"
                     style={{
                       backgroundImage:
                         "linear-gradient(to right, #224e8c, #2a5ca8)",
@@ -783,10 +784,10 @@ export default function CustomerProfile() {
 
               {/* Two-Factor Authentication */}
               <div
-                className="p-6 rounded-xl"
+                className="p-4 sm:p-6 rounded-xl"
                 style={{ backgroundColor: COLORS.gray[50] }}
               >
-                <div className="flex items-start justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                   <div className="flex-1">
                     <h3
                       className="text-lg font-bold mb-1"
@@ -813,7 +814,7 @@ export default function CustomerProfile() {
                   </div>
                   <button
                     disabled
-                    className="px-4 py-2 rounded-lg border-2 font-semibold transition-all opacity-50 cursor-not-allowed"
+                    className="w-full sm:w-auto px-4 py-2 rounded-lg border-2 font-semibold transition-all opacity-50 cursor-not-allowed"
                     style={{
                       borderColor: COLORS.gray[300],
                       color: COLORS.gray[700],
@@ -848,7 +849,7 @@ export default function CustomerProfile() {
 
               {/* Danger Zone */}
               <div
-                className="p-6 rounded-xl border-2"
+                className="p-4 sm:p-6 rounded-xl border-2"
                 style={{
                   borderColor: COLORS.danger[600],
                   backgroundColor: COLORS.danger[50],
@@ -866,7 +867,7 @@ export default function CustomerProfile() {
                 </p>
                 <button
                   onClick={() => setShowDeleteModal(true)}
-                  className="px-4 py-2 rounded-lg bg-red-600 text-white font-semibold hover:bg-red-700 transition-all"
+                  className="w-full sm:w-auto px-4 py-2 rounded-lg bg-red-600 text-white font-semibold hover:bg-red-700 transition-all"
                 >
                   Deactivate Account
                 </button>
