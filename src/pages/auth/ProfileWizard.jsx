@@ -135,62 +135,62 @@ export default function ProfileWizard() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleNext = async () => {
-    if (!validateStep(currentStep)) {
-      toast.error("Please fill all required fields");
-      return;
-    }
+const handleNext = async () => {
+  if (!validateStep(currentStep)) {
+    toast.error("Please fill all required fields");
+    return;
+  }
 
-    setIsSubmitting(true);
+  setIsSubmitting(true);
 
-    try {
-      if (currentStep === 1) {
-        await artisanApi.updateBasicInfo({
-          businessName: formData.businessName,
-          bio: formData.bio,
-          yearsOfExperience: parseInt(formData.yearsOfExperience),
-          phone: formData.phone,
-          location: {
-            street: formData.location.street,
-            city: formData.location.city,
-            state: formData.location.state,
-            country: formData.location.country,
-            coordinates: formData.location.coordinates,
-          },
-        });
-        toast.success("Basic info saved!");
-      } else if (currentStep === 2) {
-        const selectedServices = services.filter((s) =>
-          formData.serviceIds.includes(s._id)
-        );
-        const categoryIds = [
-          ...new Set(
-            selectedServices
-              .map((s) => s.category?._id || s.category)
-              .filter(Boolean)
-          ),
-        ];
-        await artisanApi.updateServices(formData.serviceIds, categoryIds);
-        toast.success("Services updated!");
-      } else if (currentStep === 3) {
-        await artisanApi.updateWorkingHours({
-          workingHours: formData.workingHours,
-          serviceRadius: formData.serviceRadius,
-        });
-        toast.success("Working hours saved!");
-      }
-
-      setCurrentStep(currentStep + 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } catch (error) {
-      console.error("Save error:", error);
-      toast.error(
-        error.response?.data?.message || "Failed to save. Please try again."
+  try {
+    if (currentStep === 1) {
+      await artisanApi.updateBasicInfo({
+        businessName: formData.businessName,
+        bio: formData.bio,
+        yearsOfExperience: parseInt(formData.yearsOfExperience),
+        phone: formData.phone,
+        location: {
+          street: formData.location.street,
+          city: formData.location.city,
+          state: formData.location.state,
+          country: formData.location.country,
+          coordinates: formData.location.coordinates,
+        },
+      });
+      // toast.success("Basic info saved!"); // ❌ REMOVE THIS LINE
+    } else if (currentStep === 2) {
+      const selectedServices = services.filter((s) =>
+        formData.serviceIds.includes(s._id)
       );
-    } finally {
-      setIsSubmitting(false);
+      const categoryIds = [
+        ...new Set(
+          selectedServices
+            .map((s) => s.category?._id || s.category)
+            .filter(Boolean)
+        ),
+      ];
+      await artisanApi.updateServices(formData.serviceIds, categoryIds);
+      // toast.success("Services updated!"); // ❌ REMOVE THIS LINE
+    } else if (currentStep === 3) {
+      await artisanApi.updateWorkingHours({
+        workingHours: formData.workingHours,
+        serviceRadius: formData.serviceRadius,
+      });
+      // toast.success("Working hours saved!"); // ❌ REMOVE THIS LINE
     }
-  };
+
+    setCurrentStep(currentStep + 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } catch (error) {
+    console.error("Save error:", error);
+    toast.error(
+      error.response?.data?.message || "Failed to save. Please try again."
+    );
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const handleBack = () => {
     setCurrentStep(currentStep - 1);
@@ -198,47 +198,48 @@ export default function ProfileWizard() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleSubmit = async () => {
-    if (!validateStep(currentStep)) {
-      toast.error("Please fill all required fields");
-      return;
-    }
+ const handleSubmit = async () => {
+   if (!validateStep(currentStep)) {
+     toast.error("Please fill all required fields");
+     return;
+   }
 
-    setIsSubmitting(true);
+   setIsSubmitting(true);
 
-    try {
-      await artisanApi.updateBankDetails({
-        accountName: formData.accountName,
-        accountNumber: formData.accountNumber,
-        bankName: formData.bankName,
-        bankCode: formData.bankCode,
-      });
+   try {
+     await artisanApi.updateBankDetails({
+       accountName: formData.accountName,
+       accountNumber: formData.accountNumber,
+       bankName: formData.bankName,
+       bankCode: formData.bankCode,
+     });
 
-      const freshUserData = await authApi.getProfileStatus();
-      const profileData = freshUserData.data || freshUserData;
+     const freshUserData = await authApi.getProfileStatus();
+     const profileData = freshUserData.data || freshUserData;
 
-      useAuthStore.getState().setProfileStatus({
-        profileComplete: profileData.profileComplete,
-        completionPercentage: profileData.completionPercentage,
-        missingRequired: profileData.missingRequired || [],
-        missingOptional: profileData.missingOptional || [],
-        canReceiveJobs: profileData.canReceiveJobs,
-      });
+     useAuthStore.getState().setProfileStatus({
+       profileComplete: profileData.profileComplete,
+       completionPercentage: profileData.completionPercentage,
+       missingRequired: profileData.missingRequired || [],
+       missingOptional: profileData.missingOptional || [],
+       canReceiveJobs: profileData.canReceiveJobs,
+     });
 
-      toast.success("Profile completed successfully!", { duration: 4000 });
+     toast.success("Profile completed successfully!", { duration: 1500 }); // ✅ CHANGE duration from 4000 to 1500
 
-      setTimeout(() => {
-        navigate("/artisan/dashboard");
-      }, 1500);
-    } catch (error) {
-      console.error("Submission error:", error);
-      toast.error(
-        error.response?.data?.message || "Failed to complete profile."
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+     setTimeout(() => {
+       toast.dismiss(); // ✅ ADD THIS LINE - Dismiss all toasts before navigating
+       navigate("/artisan/dashboard");
+     }, 1500);
+   } catch (error) {
+     console.error("Submission error:", error);
+     toast.error(
+       error.response?.data?.message || "Failed to complete profile."
+     );
+   } finally {
+     setIsSubmitting(false);
+   }
+ };
 
   const handleServiceToggle = (serviceId) => {
     setFormData((prev) => ({
