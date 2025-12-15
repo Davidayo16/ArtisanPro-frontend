@@ -375,7 +375,9 @@ export default function CustomerProfile() {
                 )}
                 <div className="flex items-center space-x-2">
                   <Calendar className="w-4 h-4" />
-                  <span>Member since {formatMemberSince(profile.memberSince)}</span>
+                  <span>
+                    Member since {formatMemberSince(profile.memberSince)}
+                  </span>
                 </div>
               </div>
             </div>
@@ -424,12 +426,17 @@ export default function CustomerProfile() {
       </div>
 
       {/* Tabs */}
+      {/* Tabs */}
+      {/* Tabs */}
       <div
         className="bg-white rounded-2xl overflow-hidden"
         style={{ border: `1px solid ${COLORS.gray[100]}` }}
       >
-        <div className="border-b" style={{ borderColor: COLORS.gray[200] }}>
-          <nav className="flex space-x-8 px-6">
+        <div
+          className="border-b overflow-x-auto scrollbar-hide"
+          style={{ borderColor: COLORS.gray[200] }}
+        >
+          <nav className="flex space-x-8 px-6 min-w-max">
             {[
               { id: "personal", label: "Personal Info" },
               { id: "address", label: "Address" },
@@ -439,7 +446,7 @@ export default function CustomerProfile() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors whitespace-nowrap ${
                   activeTab === tab.id
                     ? "border-blue-600 text-blue-600"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
@@ -508,7 +515,10 @@ export default function CustomerProfile() {
                     className="w-full px-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 disabled:bg-gray-50 disabled:cursor-not-allowed"
                     style={{ borderColor: COLORS.gray[200] }}
                   />
-                  <p className="text-xs mt-1" style={{ color: COLORS.gray[500] }}>
+                  <p
+                    className="text-xs mt-1"
+                    style={{ color: COLORS.gray[500] }}
+                  >
                     Email cannot be changed
                   </p>
                 </div>
@@ -565,7 +575,9 @@ export default function CustomerProfile() {
                   </label>
                   <input
                     type="date"
-                    value={isEditing ? editData.dateOfBirth : profile.dateOfBirth}
+                    value={
+                      isEditing ? editData.dateOfBirth : profile.dateOfBirth
+                    }
                     onChange={(e) =>
                       setEditData({ ...editData, dateOfBirth: e.target.value })
                     }
@@ -722,7 +734,10 @@ export default function CustomerProfile() {
                       Map integration coming soon
                     </p>
                     {profile.address && (
-                      <p className="text-xs mt-1" style={{ color: COLORS.gray[500] }}>
+                      <p
+                        className="text-xs mt-1"
+                        style={{ color: COLORS.gray[500] }}
+                      >
                         {profile.address}, {profile.city}
                       </p>
                     )}
@@ -846,7 +861,8 @@ export default function CustomerProfile() {
                   Danger Zone
                 </h3>
                 <p className="text-sm mb-4" style={{ color: COLORS.gray[700] }}>
-                  Once you deactivate your account, you won't be able to login. Your data will be preserved but inaccessible.
+                  Once you deactivate your account, you won't be able to login.
+                  Your data will be preserved but inaccessible.
                 </p>
                 <button
                   onClick={() => setShowDeleteModal(true)}
@@ -912,7 +928,10 @@ export default function CustomerProfile() {
                           type="checkbox"
                           checked={pref.enabled}
                           onChange={(e) =>
-                            handleNotificationToggle(pref.type, e.target.checked)
+                            handleNotificationToggle(
+                              pref.type,
+                              e.target.checked
+                            )
                           }
                           className="sr-only peer"
                         />
