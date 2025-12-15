@@ -2,6 +2,7 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import paymentApi from "../api/paymentApi";
+import bookingApi from "../api/bookingApi";
 import toast from "react-hot-toast";
 
 export const usePaymentStore = create(
@@ -13,9 +14,15 @@ export const usePaymentStore = create(
     error: null,
     verificationStatus: null, // 'verifying' | 'success' | 'failed'
 
+    // ✅ NEW: SSE verification steps
+    steps: [
+      { id: 1, message: "Verifying payment...", status: "pending" },
+      { id: 2, message: "Confirming booking...", status: "pending" },
+      { id: 3, message: "Finalizing setup...", status: "pending" },
+    ],
+
     // === INITIALIZE PAYMENT ===
     initializePayment: async (bookingId) => {
-      // Validate bookingId before making API call
       if (!bookingId || bookingId === "undefined" || bookingId === "null") {
         const errorMsg = "Invalid booking ID provided";
         console.error("Initialize payment error:", { bookingId });
@@ -41,7 +48,6 @@ export const usePaymentStore = create(
         console.log("Payment API response:", res);
         console.log("Payment data:", res.data);
 
-        // Handle different response structures
         const authUrl =
           res.data?.data?.authorization_url || res.data?.authorization_url;
 
@@ -73,7 +79,103 @@ export const usePaymentStore = create(
       }
     },
 
-    // === VERIFY PAYMENT ===
+    // ✅ NEW: SSE Stream Verification
+    verifyPaymentStream: (reference) => {
+      if (!reference || reference === "undefined" || reference === "null") {
+        const errorMsg = "Invalid payment reference";
+        console.error("Verify payment error:", { reference });
+        set({ error: errorMsg, verificationStatus: "failed", loading: false });
+        throw new Error(errorMsg);
+      }
+
+      set({
+        verificationStatus: "verifying",
+        error: null,
+        loading: true,
+        steps: [
+          { id: 1, message: "Verifying payment...", status: "loading" },
+          { id: 2, message: "Confirming booking...", status: "pending" },
+          { id: 3, message: "Finalizing setup...", status: "pending" },
+        ],
+      });
+
+      return new Promise((resolve, reject) => {
+        paymentApi.verifyPaymentStream(reference, {
+          // ✅ onProgress: Update steps in real-time
+          onProgress: (data) => {
+            console.log("📨 Progress:", data);
+
+            set((state) => ({
+              steps: state.steps.map((step) =>
+                step.id === data.step
+                  ? { ...step, message: data.message, status: data.status }
+                  : step
+              ),
+            }));
+          },
+
+          // ✅ onComplete: Fetch full booking and resolve
+          onComplete: async (data) => {
+            console.log("✅ Complete:", data);
+
+            // Fetch full booking details if needed
+            let fullBooking = data.booking;
+
+            if (fullBooking && !fullBooking.artisan) {
+              try {
+                const bookingId = fullBooking._id || fullBooking.id;
+                const res = await bookingApi.getBooking(bookingId);
+                fullBooking = res.data.data || res.data;
+              } catch (err) {
+                console.error("Failed to fetch full booking:", err);
+              }
+            }
+
+            set({
+              verificationStatus: "success",
+              payment: data.payment,
+              loading: false,
+              steps: [
+                { id: 1, message: "Payment verified", status: "success" },
+                { id: 2, message: "Booking confirmed", status: "success" },
+                { id: 3, message: "Setup complete", status: "success" },
+              ],
+            });
+
+            // ✅ DON'T show toast here - let the success page handle it
+            // toast.success("Payment successful!", { ... });
+
+            resolve({ payment: data.payment, booking: fullBooking });
+          },
+
+          // ✅ onError: Handle errors
+          onError: (data) => {
+            console.error("❌ Error:", data);
+
+            set({
+              verificationStatus: "failed",
+              error: data.message || "Payment verification failed",
+              loading: false,
+            });
+
+            toast.error(data.message || "Payment verification failed", {
+              duration: 5000,
+              style: {
+                background: "#dc2626",
+                color: "#fff",
+                padding: "16px",
+                borderRadius: "12px",
+                fontWeight: "600",
+              },
+            });
+
+            reject(new Error(data.message || "Payment verification failed"));
+          },
+        });
+      });
+    },
+
+    // === ORIGINAL VERIFY PAYMENT (Fallback) ===
     verifyPayment: async (reference) => {
       if (!reference || reference === "undefined" || reference === "null") {
         const errorMsg = "Invalid payment reference";
@@ -292,6 +394,11 @@ export const usePaymentStore = create(
         loading: false,
         error: null,
         verificationStatus: null,
+        steps: [
+          { id: 1, message: "Verifying payment...", status: "pending" },
+          { id: 2, message: "Confirming booking...", status: "pending" },
+          { id: 3, message: "Finalizing setup...", status: "pending" },
+        ],
       }),
   }))
 );

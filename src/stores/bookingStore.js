@@ -178,30 +178,30 @@ export const useBookingStore = create(
     setDeclineReason: (reason) => set({ declineReason: reason }),
 
     // === JOB ACTIONS (Optimized with refresh) ===
-    accept: async (bookingId) => {
-      if (!bookingId) {
-        toast.error("No booking selected");
-        return;
-      }
-
-      set({ actionLoading: true });
-      try {
-        await bookingApi.acceptBooking(bookingId);
-        toast.success("Booking accepted!");
-
-        // Refresh notifications
-        useNotificationStore.getState().fetchUnreadCount();
-
-        // ✅ Smart refresh - only refresh current view
-        await get().refresh();
-      } catch (err) {
-        const msg = err.response?.data?.message || "Failed to accept";
-        toast.error(msg);
-        set({ error: msg });
-      } finally {
-        set({ actionLoading: false });
-      }
-    },
+   accept: async (bookingId) => {
+  set({ actionLoading: true });
+  try {
+    await bookingApi.acceptBooking(bookingId);
+    toast.success("Booking accepted!");
+    
+    // ✅ Remove from list (it's no longer "pending")
+    set((state) => ({
+      bookings: state.bookings.filter(b => b._id !== bookingId),
+      actionLoading: false
+    }));
+    
+    // ✅ Update stats only
+    get().fetchStats();
+    
+    // Refresh notifications
+    useNotificationStore.getState().fetchUnreadCount();
+    
+  } catch (err) {
+    const msg = err.response?.data?.message || "Failed to accept";
+    toast.error(msg);
+    set({ actionLoading: false });
+  }
+},
 
     decline: async () => {
       const { selectedBooking, declineReason, closeDecline } = get();

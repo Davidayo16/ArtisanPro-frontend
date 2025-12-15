@@ -16,6 +16,9 @@ import {
 import toast, { Toaster } from "react-hot-toast";
 
 export default function PaymentSuccess() {
+   useEffect(() => {
+     toast.dismiss();
+   }, []);
   const location = useLocation();
   const navigate = useNavigate();
   const { booking, payment } = location.state || {};
