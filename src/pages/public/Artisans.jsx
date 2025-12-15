@@ -82,12 +82,16 @@ export default function Artisans() {
   const [searchInput, setSearchInput] = useState("");
   const [isGettingLocation, setIsGettingLocation] = useState(false);
 
-  useEffect(() => {
-    fetchArtisans();
-    fetchServices();
-    fetchCategories();
+useEffect(() => {
+  fetchArtisans();
+  fetchServices();
+  fetchCategories();
+
+  // ✅ Only fetch saved artisans if logged in as customer
+  if (isAuthenticated && user?.role === "customer") {
     fetchSavedArtisans();
-  }, []);
+  }
+}, [isAuthenticated, user]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -664,20 +668,22 @@ export default function Artisans() {
                               )}&background=2a5ca8&color=fff&size=800&bold=true&format=svg`;
                             }}
                           />
-                          <button
-                            onClick={() => toggleSaveArtisan(artisan._id)}
-                            className={`absolute top-2 right-2 p-1.5 rounded-full shadow-lg transition-all ${
-                              isSaved(artisan._id)
-                                ? "bg-red-500 text-white"
-                                : "bg-white text-gray-700 hover:bg-red-50"
-                            }`}
-                          >
-                            <Heart
-                              className={`w-4 h-4 ${
-                                isSaved(artisan._id) ? "fill-current" : ""
+                          {isAuthenticated && user?.role === "customer" && (
+                            <button
+                              onClick={() => toggleSaveArtisan(artisan._id)}
+                              className={`absolute top-2 right-2 p-1.5 rounded-full shadow-lg transition-all ${
+                                isSaved(artisan._id)
+                                  ? "bg-red-500 text-white"
+                                  : "bg-white text-gray-700 hover:bg-red-50"
                               }`}
-                            />
-                          </button>
+                            >
+                              <Heart
+                                className={`w-4 h-4 ${
+                                  isSaved(artisan._id) ? "fill-current" : ""
+                                }`}
+                              />
+                            </button>
+                          )}
                           {artisan.isAvailableNow && (
                             <div className="absolute bottom-2 left-2 bg-green-500 text-white px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1">
                               <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></div>

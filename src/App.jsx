@@ -230,15 +230,55 @@ export default function App() {
 
           {/* ==================== CUSTOMER ROUTES (SEMI-PROTECTED) ==================== */}
           {/* These routes are accessible but require some auth */}
-          <Route path="/booking" element={<Booking />} />
+          {/* ==================== CUSTOMER ROUTES (NOW PROTECTED) ==================== */}
+          <Route
+            path="/booking"
+            element={
+              <ProtectedCustomerRoute>
+                <Booking />
+              </ProtectedCustomerRoute>
+            }
+          />
           <Route
             path="/booking-status/:bookingId"
-            element={<BookingStatus />}
+            element={
+              <ProtectedCustomerRoute>
+                <BookingStatus />
+              </ProtectedCustomerRoute>
+            }
           />
-          <Route path="/payment/:bookingId" element={<Payment />} />
-          <Route path="/payment/success" element={<PaymentSuccess />} />
-          <Route path="/payment/callback" element={<PaymentCallback />} />
-          <Route path="/payment/failed" element={<PaymentFailed />} />
+          <Route
+            path="/payment/:bookingId"
+            element={
+              <ProtectedCustomerRoute>
+                <Payment />
+              </ProtectedCustomerRoute>
+            }
+          />
+          <Route
+            path="/payment/success"
+            element={
+              <ProtectedCustomerRoute>
+                <PaymentSuccess />
+              </ProtectedCustomerRoute>
+            }
+          />
+          <Route
+            path="/payment/callback"
+            element={
+              <ProtectedCustomerRoute>
+                <PaymentCallback />
+              </ProtectedCustomerRoute>
+            }
+          />
+          <Route
+            path="/payment/failed"
+            element={
+              <ProtectedCustomerRoute>
+                <PaymentFailed />
+              </ProtectedCustomerRoute>
+            }
+          />
 
           {/* Review Routes - Protected */}
           <Route
