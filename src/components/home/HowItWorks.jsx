@@ -78,7 +78,7 @@ export default function HowItWorks() {
         <div className="text-center mb-16">
           <span
             className="inline-block px-4 py-2 rounded-full text-sm font-semibold mb-4"
-            style={{ backgroundColor: "#fff7ed", color: "#ea580c" }}
+            style={{ backgroundColor: "#fef3c7", color: "#92400e" }}
           >
             How It Works
           </span>
@@ -112,7 +112,7 @@ export default function HowItWorks() {
                 <div className="flex items-center gap-3">
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center text-white"
-                    style={{ backgroundColor: "#ea580c" }}
+                    style={{ backgroundColor: "#fbbf24" }}
                   >
                     <ActiveIcon size={24} />
                   </div>
@@ -149,7 +149,7 @@ export default function HowItWorks() {
                             : "bg-gray-200 text-gray-400"
                         }`}
                         style={{
-                          backgroundColor: isActive ? "#ea580c" : undefined,
+                          backgroundColor: isActive ? "#fbbf24" : undefined,
                         }}
                       >
                         <Icon size={28} />
@@ -161,7 +161,7 @@ export default function HowItWorks() {
                         className={`text-sm font-bold mb-2 transition-all duration-500 ${
                           isActive ? "opacity-100" : "opacity-50"
                         }`}
-                        style={{ color: "#ea580c" }}
+                        style={{ color: "#f59e0b" }}
                       >
                         STEP {step.number}
                       </div>
@@ -206,7 +206,7 @@ export default function HowItWorks() {
 
                   <div
                     className="absolute top-4 left-4 w-12 h-12 rounded-xl flex items-center justify-center text-white shadow-lg"
-                    style={{ backgroundColor: "#ea580c" }}
+                    style={{ backgroundColor: "#fbbf24" }}
                   >
                     <Icon size={24} />
                   </div>
@@ -215,7 +215,7 @@ export default function HowItWorks() {
                 <div className="p-6">
                   <div
                     className="text-xs font-bold mb-2"
-                    style={{ color: "#ea580c" }}
+                    style={{ color: "#f59e0b" }}
                   >
                     STEP {step.number}
                   </div>
@@ -235,7 +235,7 @@ export default function HowItWorks() {
           <button
             className="group relative px-10 py-4 text-white font-semibold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
             style={{
-              background: "linear-gradient(135deg, #ea580c, #f97316)",
+              background: "linear-gradient(135deg, #f59e0b, #fbbf24)",
             }}
           >
             <span className="relative z-10">Start Your First Job</span>

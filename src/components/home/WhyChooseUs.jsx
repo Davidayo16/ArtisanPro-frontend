@@ -1,37 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Shield, Clock, Award, Zap, ArrowRight } from "lucide-react";
- import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 export default function WhyChooseUs() {
-    const navigate = useNavigate();
   const [hasAnimated, setHasAnimated] = useState(false);
   const [artisans, setArtisans] = useState(0);
   const [jobs, setJobs] = useState(0);
   const [rating, setRating] = useState(0);
   const statsRef = useRef(null);
-
-  const benefits = [
-    {
-      icon: Shield,
-      title: "Verified Professionals",
-      description: "Background-checked artisans you can trust",
-    },
-    {
-      icon: Clock,
-      title: "Fast Response",
-      description: "Connect with nearby experts in minutes",
-    },
-    {
-      icon: Award,
-      title: "Quality Guaranteed",
-      description: "Satisfaction backed by our commitment",
-    },
-    {
-      icon: Zap,
-      title: "Secure Payments",
-      description: "Safe transactions, every time",
-    },
-  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -80,31 +55,22 @@ export default function WhyChooseUs() {
 
   return (
     <section className="relative overflow-hidden bg-white py-20">
-      {/* Diagonal Image Background Section */}
+      {/* Reduced Diagonal Background Section */}
       <div
         className="absolute inset-0 overflow-hidden"
         style={{
-          clipPath: "polygon(0 0, 100% 0, 100% 65%, 0 85%)",
-          background: "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)",
+          clipPath: "polygon(0 0, 100% 0, 100% 85%, 0 95%)",
+          background:
+            "linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.3) 100%)",
         }}
       >
         <div
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0"
           style={{
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1483639130939-150975af84e5?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?w=1200&q=80')",
+              "url('https://images.unsplash.com/photo-1483639130939-150975af84e5?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
             backgroundSize: "cover",
             backgroundPosition: "center",
-          }}
-        />
-
-        {/* Subtle overlay pattern */}
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: `radial-gradient(circle at 20% 50%, #224e8c 1px, transparent 1px),
-                             radial-gradient(circle at 80% 80%, #2a5ca8 1px, transparent 1px)`,
-            backgroundSize: "50px 50px",
           }}
         />
       </div>
@@ -119,8 +85,8 @@ export default function WhyChooseUs() {
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left Content */}
+        <div className="max-w-3xl">
+          {/* Content */}
           <div className="relative z-10">
             <div className="mb-8">
               <div className="inline-block mb-6">
@@ -138,13 +104,19 @@ export default function WhyChooseUs() {
                 />
               </div>
 
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
+              <h2
+                className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white"
+                style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.8)" }}
+              >
                 Quality service,
                 <br />
-                <span style={{ color: "#224e8c" }}>trusted experts</span>
+                <span className="text-yellow-300">trusted experts</span>
               </h2>
 
-              <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+              <p
+                className="text-lg md:text-xl leading-relaxed text-white font-medium"
+                style={{ textShadow: "1px 1px 6px rgba(0,0,0,0.8)" }}
+              >
                 We connect you with skilled artisans who deliver excellence.
                 Every professional is verified, every job is guaranteed.
               </p>
@@ -187,86 +159,32 @@ export default function WhyChooseUs() {
             {/* CTA */}
             <div className="mt-10">
               <button
-                         onClick={() => navigate("/register")}
-                         className="group relative inline-flex items-center gap-2 text-white px-8 py-4 rounded-xl font-semibold overflow-hidden transition-all duration-300 hover:scale-105"
-                         style={{
-                           backgroundImage: "linear-gradient(to right, #224e8c, #2a5ca8)",
-                           boxShadow: "0 10px 30px -10px rgba(34, 78, 140, 0.5)",
-                         }}
-                       >
-                         <span className="relative z-10 flex items-center gap-2">
-                           Get Started
-                           <ArrowRight
-                             size={20}
-                             className="transition-transform group-hover:translate-x-2"
-                           />
-                         </span>
-             
-                         <div
-                           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                           style={{
-                             background:
-                               "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
-                             animation: "shimmer 2s infinite",
-                           }}
-                         />
-                       </button>
-              
-            </div>
-          </div>
+                onClick={() => alert("Get Started clicked!")}
+                className="group relative inline-flex items-center gap-2 text-white px-8 py-4 rounded-xl font-semibold overflow-hidden transition-all duration-300 hover:scale-105"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(to right, #224e8c, #2a5ca8)",
+                  boxShadow: "0 10px 30px -10px rgba(34, 78, 140, 0.5)",
+                }}
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  Get Started
+                  <ArrowRight
+                    size={20}
+                    className="transition-transform group-hover:translate-x-2"
+                  />
+                </span>
 
-          {/* Right Benefits Grid */}
-          <div className="relative z-10 grid sm:grid-cols-2 gap-6">
-            {benefits.map((benefit, idx) => {
-              const Icon = benefit.icon;
-
-              return (
                 <div
-                  key={idx}
-                  className="group relative bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
                   style={{
-                    border: "1px solid rgba(226, 232, 240, 0.8)",
+                    background:
+                      "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
+                    animation: "shimmer 2s infinite",
                   }}
-                >
-                  {/* Subtle gradient on hover */}
-                  <div
-                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-5 transition-opacity"
-                    style={{
-                      background: "linear-gradient(135deg, #224e8c, #2a5ca8)",
-                    }}
-                  />
-
-                  <div className="relative">
-                    <div
-                      className="w-14 h-14 rounded-xl mb-4 flex items-center justify-center text-white transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300"
-                      style={{
-                        background: "linear-gradient(135deg, #224e8c, #2a5ca8)",
-                      }}
-                    >
-                      <Icon size={24} strokeWidth={2.5} />
-                    </div>
-
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
-                      {benefit.title}
-                    </h3>
-
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      {benefit.description}
-                    </p>
-                  </div>
-
-                  {/* Decorative corner accent */}
-                  <div
-                    className="absolute top-0 right-0 w-20 h-20 opacity-0 group-hover:opacity-10 transition-opacity"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, transparent 50%, #2a5ca8 50%)",
-                      borderTopRightRadius: "1rem",
-                    }}
-                  />
-                </div>
-              );
-            })}
+                />
+              </button>
+            </div>
           </div>
         </div>
       </div>
