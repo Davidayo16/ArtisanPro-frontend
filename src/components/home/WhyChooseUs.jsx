@@ -123,7 +123,7 @@ export default function WhyChooseUs() {
             </div>
 
             {/* Stats Row with Animation */}
-            <div
+            {/* <div
               ref={statsRef}
               className="grid grid-cols-3 gap-6 py-8 border-t border-b border-gray-200"
             >
@@ -154,7 +154,7 @@ export default function WhyChooseUs() {
                 </div>
                 <div className="text-sm text-gray-600">Rating</div>
               </div>
-            </div>
+            </div> */}
 
             {/* CTA */}
             <div className="mt-10">
