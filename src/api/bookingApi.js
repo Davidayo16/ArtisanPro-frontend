@@ -28,9 +28,14 @@ const bookingApi = {
       params: { status, page, limit, search },
       signal,
     }),
-
-  acceptBooking: (id) => api.put(`/bookings/${id}/accept`),
-
+  acceptBooking: (id) =>
+    api.put(
+      `/bookings/${id}/accept`,
+      {},
+      {
+        _skipRetry: true, // Add this flag
+      }
+    ),
   declineBooking: (id, reason) =>
     api.put(`/bookings/${id}/decline`, { reason }),
 

@@ -149,34 +149,35 @@ api.interceptors.response.use(
     originalRequest._retryCount = originalRequest._retryCount || 0;
 
     // ========== HANDLE NETWORK ERRORS & RETRYABLE ERRORS ==========
-    if (
-      isRetryableError(error) &&
-      originalRequest._retryCount < CONFIG.MAX_RETRIES &&
-      !originalRequest._isRetry
-    ) {
-      originalRequest._retryCount += 1;
-      originalRequest._isRetry = true;
+  if (
+    isRetryableError(error) &&
+    originalRequest._retryCount < CONFIG.MAX_RETRIES &&
+    !originalRequest._isRetry &&
+    !originalRequest._skipRetry // ← ADD THIS CHECK
+  ) {
+    originalRequest._retryCount += 1;
+    originalRequest._isRetry = true;
 
-      logger.warn(
-        `Retrying request (${originalRequest._retryCount}/${CONFIG.MAX_RETRIES}): ${originalRequest.url}`
-      );
+    logger.warn(
+      `Retrying request (${originalRequest._retryCount}/${CONFIG.MAX_RETRIES}): ${originalRequest.url}`
+    );
 
-      // Exponential backoff
-      const delay = CONFIG.RETRY_DELAY * originalRequest._retryCount;
-      await sleep(delay);
+    // Exponential backoff
+    const delay = CONFIG.RETRY_DELAY * originalRequest._retryCount;
+    await sleep(delay);
 
-      try {
-        return await api(originalRequest);
-      } catch (retryError) {
-        if (originalRequest._retryCount >= CONFIG.MAX_RETRIES) {
-          logger.error(
-            `Max retries reached for: ${originalRequest.url}`,
-            retryError
-          );
-        }
-        return Promise.reject(retryError);
+    try {
+      return await api(originalRequest);
+    } catch (retryError) {
+      if (originalRequest._retryCount >= CONFIG.MAX_RETRIES) {
+        logger.error(
+          `Max retries reached for: ${originalRequest.url}`,
+          retryError
+        );
       }
+      return Promise.reject(retryError);
     }
+  }
 
     // ========== HANDLE 401 AUTHENTICATION ERRORS ==========
     if (isAuthError(error) && !originalRequest._isRetry) {
