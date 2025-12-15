@@ -337,10 +337,10 @@ const handleSubmit = async () => {
         fontWeight: "600",
       },
     });
-
-    setTimeout(() => {
-      navigate(`/booking-status/${booking._id}`);
-    }, 1000);
+setTimeout(() => {
+  toast.dismiss(); // ✅ ADD THIS LINE
+  navigate(`/booking-status/${booking._id}`);
+}, 1000);
   } catch (err) {
     console.error("Booking creation failed:", err);
     toast.dismiss("booking-create"); // ✅ Add this line
@@ -648,7 +648,7 @@ const handleSubmit = async () => {
                                     <Video className="w-6 h-6 text-blue-600" />
                                   </div>
                                 )}
-                                <span className="text-sm text-gray-700 font-medium">
+                                <span className="text-sm text-gray-700 font-medium truncate max-w-[150px]">
                                   {file.name}
                                 </span>
                               </div>
@@ -916,9 +916,11 @@ const handleSubmit = async () => {
                       Contact Phone Number *
                     </label>
                     <div className="relative flex">
-                      <div className="flex items-center px-3 bg-gray-50 border-2 border-r-0 border-gray-200 rounded-l-xl">
-                        <Phone className="w-5 h-5 text-gray-400 mr-2" />
-                        <span className="text-gray-700 font-medium">+234</span>
+                      <div className="flex items-center px-2 sm:px-3 bg-gray-50 border-2 border-r-0 border-gray-200 rounded-l-lg sm:rounded-l-xl">
+                        <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 mr-1 sm:mr-2" />
+                        <span className="text-sm sm:text-base text-gray-700 font-medium">
+                          +234
+                        </span>
                       </div>
                       <input
                         type="tel"
@@ -927,7 +929,7 @@ const handleSubmit = async () => {
                           updateForm({ contactPhone: e.target.value });
                           setErrors({ ...errors, contactPhone: "" });
                         }}
-                        className={`flex-1 px-4 py-3 border-2 rounded-r-xl focus:outline-none transition-all ${
+                        className={`flex-1 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 rounded-r-lg sm:rounded-r-xl focus:outline-none transition-all ${
                           errors.contactPhone
                             ? "border-red-500"
                             : "border-gray-200 focus:border-blue-500"
@@ -945,20 +947,27 @@ const handleSubmit = async () => {
                     <label className="block text-sm font-semibold text-gray-900 mb-2">
                       Alternate Phone (Optional)
                     </label>
-                    <div className="relative flex">
-                      <div className="flex items-center px-3 bg-gray-50 border-2 border-r-0 border-gray-200 rounded-l-xl">
-                        <Phone className="w-5 h-5 text-gray-400 mr-2" />
-                        <span className="text-gray-700 font-medium">+234</span>
+                    <div>
+                      <label className="block text-xs sm:text-sm font-semibold text-gray-900 mb-2">
+                        Alternate Phone (Optional)
+                      </label>
+                      <div className="relative flex">
+                        <div className="flex items-center px-2 sm:px-3 bg-gray-50 border-2 border-r-0 border-gray-200 rounded-l-lg sm:rounded-l-xl">
+                          <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 mr-1 sm:mr-2" />
+                          <span className="text-sm sm:text-base text-gray-700 font-medium">
+                            +234
+                          </span>
+                        </div>
+                        <input
+                          type="tel"
+                          value={formData.alternatePhone}
+                          onChange={(e) =>
+                            updateForm({ alternatePhone: e.target.value })
+                          }
+                          className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 border-gray-200 rounded-r-lg sm:rounded-r-xl focus:outline-none focus:border-blue-500"
+                          placeholder="9012345678"
+                        />
                       </div>
-                      <input
-                        type="tel"
-                        value={formData.alternatePhone}
-                        onChange={(e) =>
-                          updateForm({ alternatePhone: e.target.value })
-                        }
-                        className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-r-xl focus:outline-none focus:border-blue-500"
-                        placeholder="9012345678"
-                      />
                     </div>
                   </div>
                   <div>
@@ -1186,9 +1195,9 @@ const handleSubmit = async () => {
                   <button
                     onClick={handleBack}
                     disabled={loading}
-                    className="flex-1 px-6 py-3 border-2 border-gray-300 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
+                    className="flex-1 px-4 sm:px-6 py-2.5 sm:py-3 border-2 border-gray-300 rounded-lg sm:rounded-xl text-sm sm:text-base text-gray-700 font-semibold hover:bg-gray-50 transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
                   >
-                    <ChevronLeft className="w-5 h-5" />
+                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                     <span>Back</span>
                   </button>
                 )}
@@ -1208,10 +1217,8 @@ const handleSubmit = async () => {
                     </>
                   ) : (
                     <>
-                      <span>
-                        {currentStep === 4
-                          ? "Submit Booking Request"
-                          : "Continue"}
+                      <span className="text-sm sm:text-base">
+                        {currentStep === 4 ? "Submit" : "Continue"}
                       </span>
                       {currentStep < 4 && <ChevronRight className="w-5 h-5" />}
                     </>
