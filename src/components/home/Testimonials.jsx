@@ -46,7 +46,7 @@ export default function Testimonials() {
         {/* Minimal Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div className="max-w-xl">
-            <p className="text-blue-500 font-medium tracking-[0.2em] uppercase text-xs mb-4">
+            <p className="text-[#1c3866] font-medium tracking-[0.2em] uppercase text-xs mb-4">
               Reviews
             </p>
             <h2 className="text-4xl md:text-5xl font-light tracking-tight">
@@ -61,7 +61,7 @@ export default function Testimonials() {
                   <Star
                     key={i}
                     size={10}
-                    className="fill-blue-500 text-blue-500"
+                    className="fill-blue-500 text-[#1c3866]"
                   />
                 ))}
               </div>
@@ -80,11 +80,7 @@ export default function Testimonials() {
         >
           {/* Main Content (8 cols) */}
           <div className="lg:col-span-8">
-            <Quote
-              className="text-blue-500/20 mb-6"
-              size={40}
-              strokeWidth={1}
-            />
+            <Quote className="text-[#1c3866] mb-6" size={40} strokeWidth={1} />
 
             <div className="relative min-h-[200px]">
               {/* Animated Text transition */}
@@ -126,7 +122,7 @@ export default function Testimonials() {
                 {!isPaused && (
                   <div
                     key={active}
-                    className="absolute inset-0 bg-blue-500 origin-left animate-line-progress"
+                    className="absolute inset-0 bg-[#1c3866] origin-left animate-line-progress"
                   />
                 )}
               </div>
@@ -150,7 +146,7 @@ export default function Testimonials() {
               <p className="text-sm text-gray-500">
                 {testimonials[active].role}
               </p>
-              <div className="mt-4 px-3 py-1 rounded-md bg-blue-500/5 border border-blue-500/10 text-blue-400 text-[10px] font-bold uppercase tracking-widest w-fit">
+              <div className="mt-4 px-3 py-1 rounded-md bg-blue-500/5 border border-blue-500/10 text-[#1c3866] text-[10px] font-bold uppercase tracking-widest w-fit">
                 {testimonials[active].service}
               </div>
             </div>
@@ -161,7 +157,7 @@ export default function Testimonials() {
                 <button
                   key={i}
                   onClick={() => setActive(i)}
-                  className={`h-1 transition-all duration-300 rounded-full ${active === i ? "w-6 bg-blue-500" : "w-2 bg-white/20 hover:bg-white/40"}`}
+                  className={`h-1 transition-all duration-300 rounded-full ${active === i ? "w-6 bg-[#1c3866]" : "w-2 bg-white/20 hover:bg-white/40"}`}
                 />
               ))}
             </div>

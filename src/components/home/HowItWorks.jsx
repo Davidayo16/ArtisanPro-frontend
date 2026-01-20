@@ -64,7 +64,7 @@ export default function HowItWorks() {
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div className="mb-24">
-          <div className="flex items-center gap-2 text-blue-500 mb-4">
+          <div className="flex items-center gap-2 text-[#1c3866]  mb-4">
             <Shield size={14} />
             <span className="text-[10px] font-bold uppercase tracking-[0.4em]">
               The Protocol
@@ -93,7 +93,7 @@ export default function HowItWorks() {
               >
                 <div className="flex items-center gap-8">
                   <span
-                    className={`text-sm font-mono transition-colors duration-[1000ms] ${activeStep === idx ? "text-blue-500" : "text-gray-500"}`}
+                    className={`text-sm font-mono transition-colors duration-[1000ms] ${activeStep === idx ? "text-[#1c3866] " : "text-gray-500"}`}
                   >
                     {step.number}
                   </span>
@@ -130,7 +130,7 @@ export default function HowItWorks() {
                   {/* Dynamic Icon with slow fade/scale */}
                   <div
                     key={activeStep}
-                    className="relative z-10 text-blue-500 mb-6 animate-in fade-in zoom-in duration-1000 ease-out"
+                    className="relative z-10 text-[#1c3866]  mb-6 animate-in fade-in zoom-in duration-1000 ease-out"
                   >
                     {React.createElement(steps[activeStep].icon, {
                       size: 54,
@@ -163,7 +163,7 @@ export default function HowItWorks() {
                   <div
                     className={`absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-[1000ms] ${
                       activeStep === i
-                        ? "bg-blue-500 shadow-[0_0_20px_#3b82f6] scale-[2]"
+                        ? "bg-[#1c3866] shadow-[0_0_20px_#3b82f6] scale-[2]"
                         : "bg-white/10 scale-100"
                     }`}
                   />
@@ -180,7 +180,7 @@ export default function HowItWorks() {
               GET STARTED NOW
               <ArrowRight
                 size={16}
-                className="text-blue-500 group-hover:translate-x-1 transition-transform"
+                className="text-[#1c3866] group-hover:translate-x-1 transition-transform"
               />
             </span>
           </button>

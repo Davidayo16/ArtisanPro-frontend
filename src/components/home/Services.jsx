@@ -89,7 +89,7 @@ export default function Services() {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-20">
           <div className="max-w-2xl">
-            <div className="flex items-center gap-2 text-blue-500 mb-4">
+            <div className="flex items-center gap-2 text-[#1c3866] mb-4">
               <ShieldCheck size={16} />
               <span className="text-xs font-bold uppercase tracking-[0.3em]">
                 Verified Expertise
