@@ -1,215 +1,230 @@
-import React, { useState } from "react";
-import { ArrowRight, Star, CheckCircle } from "lucide-react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 export default function Hero() {
-  const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
+  const [isHovered, setIsHovered] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const [typedText, setTypedText] = useState("");
+  const fullText = "Artisans";
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    let currentIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setTypedText(fullText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 150);
+
+    return () => clearInterval(typingInterval);
+  }, []);
 
   return (
-    <section className="relative min-h-screen bg-white overflow-hidden">
-      {/* Enhanced Background Pattern */}
-      <div className="absolute inset-0">
-        {/* Grid pattern - more visible */}
+    <section className="relative min-h-screen bg-[#0f0f0f] overflow-hidden">
+      {/* Sophisticated Background - Behind everything with z-index */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        {/* Base grid - white */}
         <div
-          className="absolute inset-0 opacity-50"
+          className="absolute inset-0 opacity-30"
           style={{
-            backgroundImage: `linear-gradient(rgba(34,78,140,0.08) 1.5px, transparent 1.5px),
-                             linear-gradient(90deg, rgba(34,78,140,0.08) 1.5px, transparent 1.5px)`,
-            backgroundSize: "48px 48px",
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)`,
+            backgroundSize: "80px 80px",
+            transform: `translateY(${scrollY * 0.2}px)`,
           }}
         ></div>
 
-        {/* Accent circles */}
-        <div className="absolute top-32 -right-32 w-96 h-96 bg-[#224e8c]/5 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-[#2a5ca8]/5 rounded-full blur-3xl"></div>
-
-        {/* Subtle dots pattern */}
+        {/* Blue colored grid section - top right area */}
         <div
-          className="absolute inset-0 opacity-20"
+          className="absolute inset-0 opacity-70"
           style={{
-            backgroundImage:
-              "radial-gradient(circle, rgba(34,78,140,0.15) 1px, transparent 1px)",
-            backgroundSize: "24px 24px",
+            backgroundImage: `linear-gradient(rgba(59,130,246,0.15) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(59,130,246,0.15) 1px, transparent 1px)`,
+            backgroundSize: "80px 80px",
+            transform: `translateY(${scrollY * 0.2}px)`,
+            clipPath: "circle(40% at 75% 25%)",
           }}
         ></div>
+
+        {/* Green colored grid section - bottom left area */}
+        <div
+          className="absolute inset-0 opacity-60"
+          style={{
+            backgroundImage: `linear-gradient(rgba(16,185,129,0.12) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(16,185,129,0.12) 1px, transparent 1px)`,
+            backgroundSize: "80px 80px",
+            transform: `translateY(${scrollY * 0.2}px)`,
+            clipPath: "circle(35% at 25% 75%)",
+          }}
+        ></div>
+
+        {/* Accent glow - lighter */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/20 rounded-full blur-[120px] animate-pulse"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[100px]"></div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-12 pb-32">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Content - 6 columns */}
-          <div className="lg:col-span-6 space-y-8">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 px-4 py-2 rounded-full">
-              <div className="w-2 h-2 bg-[#224e8c] rounded-full animate-pulse"></div>
-              <span className="text-sm text-[#224e8c] font-medium">
-                10,000+ Verified Professionals
-              </span>
-            </div>
-
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-28 lg:pt-32 pb-20 sm:pb-28 lg:pb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center">
+          {/* Left Content */}
+          <div className="space-y-8 sm:space-y-10 animate-fade-in">
             {/* Headline */}
-            <div className="space-y-6">
-              <h1 className="text-6xl lg:text-7xl font-bold text-gray-900 leading-none tracking-tight">
+            <div className="space-y-4 sm:space-y-6">
+              <h1
+                className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[0.95] tracking-tight opacity-0 animate-slide-up"
+                style={{
+                  animationDelay: "0.2s",
+                  animationFillMode: "forwards",
+                }}
+              >
                 Find Skilled
                 <br />
-                <span className="relative inline-block mt-2">
-                  <span
-                    className="relative z-10 text-transparent"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(to right, #224e8c, #2a5ca8)",
-                      WebkitBackgroundClip: "text",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    Artisans
+                <span className="relative inline-block mt-2 sm:mt-3">
+                  <span className="text-white">
+                    {typedText}
+                    <span className="inline-block w-0.5 h-[0.9em] bg-blue-500 ml-1 animate-blink"></span>
                   </span>
-                  <div className="absolute bottom-2 left-0 right-0 h-3 bg-[#224e8c]/10 -rotate-1"></div>
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-[2px] sm:h-[3px] rounded-full"
+                    style={{
+                      background: "linear-gradient(to right, #3b82f6, #10b981)",
+                    }}
+                  ></div>
                 </span>
                 <br />
-                <span className="text-gray-600">Near You</span>
+                <span className="text-gray-500">Near You</span>
               </h1>
 
-              <p className="text-xl text-gray-600 leading-relaxed max-w-lg">
+              <p
+                className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-md font-light opacity-0 animate-slide-up"
+                style={{
+                  animationDelay: "0.3s",
+                  animationFillMode: "forwards",
+                }}
+              >
                 Connect with verified professionals for plumbing, carpentry,
-                electrical work, and more. Quality service, guaranteed results.
+                electrical work, and more. Quality craftsmanship, delivered.
               </p>
             </div>
 
-            {/* CTA - Using your exact primary button style */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            {/* CTA */}
+            <div
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 opacity-0 animate-slide-up"
+              style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
+            >
               <button
                 onClick={() => navigate("/artisans")}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
-                className="group relative inline-flex items-center gap-2 text-white px-8 py-4 rounded-xl font-semibold overflow-hidden transition-all duration-300 hover:scale-105"
+                className="group relative inline-flex items-center justify-center gap-2 text-black px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold overflow-hidden transition-all duration-300 hover:scale-[1.02] bg-gray-300 w-full sm:w-auto"
                 style={{
-                  backgroundImage:
-                    "linear-gradient(to right, #224e8c, #2a5ca8)",
-                  boxShadow: "0 10px 30px -10px rgba(34, 78, 140, 0.5)",
+                  boxShadow: "0 0 40px rgba(59, 130, 246, 0.3)",
                 }}
               >
-                <span className="relative z-10 flex items-center gap-2">
+                <span className="relative z-10 flex items-center gap-2 text-sm sm:text-base">
                   Find Artisans
                   <ArrowRight
                     size={20}
-                    className={`transition-transform duration-300 ${
-                      isHovered ? "translate-x-2" : ""
-                    }`}
+                    className={`transition-transform duration-300 ${isHovered ? "translate-x-1" : ""}`}
                   />
                 </span>
-
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
-                  }}
-                />
               </button>
 
-              <button className="px-8 py-4 bg-white border-2 border-gray-200 text-gray-900 rounded-xl font-semibold hover:border-gray-300 hover:bg-gray-50 transition-all duration-300">
+              <button className="px-6 sm:px-8 py-3 sm:py-4 bg-transparent border border-white/20 text-white rounded-lg font-semibold hover:bg-white/5 hover:border-white/30 transition-all duration-300 w-full sm:w-auto text-sm sm:text-base">
                 How It Works
               </button>
             </div>
-
-            {/* Trust Stats - Cleaner */}
-            <div className="flex flex-wrap gap-8 pt-8">
-              <div className="flex items-center gap-3">
-                <div className="flex -space-x-2">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#224e8c]/20 to-[#224e8c]/30 border-2 border-white"></div>
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#224e8c]/40 to-[#224e8c]/50 border-2 border-white"></div>
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#224e8c]/60 to-[#224e8c]/70 border-2 border-white"></div>
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#224e8c] to-[#2a5ca8] border-2 border-white flex items-center justify-center text-white text-xs font-bold">
-                    +
-                  </div>
-                </div>
-                <div>
-                  <div className="text-gray-900 font-bold">50,000+</div>
-                  <div className="text-gray-500 text-sm">Happy Customers</div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 fill-yellow-400 text-yellow-400"
-                    />
-                  ))}
-                </div>
-                <div>
-                  <div className="text-gray-900 font-bold">4.8/5</div>
-                  <div className="text-gray-500 text-sm">Average Rating</div>
-                </div>
-              </div>
-            </div>
           </div>
 
-          {/* Right Side - 6 columns, better spacing */}
-          <div className="lg:col-span-6">
-            <div className="relative">
-              {/* Main Image */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#224e8c]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          {/* Right Side - Image */}
+          <div
+            className="relative lg:ml-auto w-full max-w-xl mx-auto lg:max-w-none opacity-0 animate-slide-up"
+            style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}
+          >
+            <div className="relative group">
+              {/* Glow effect behind image */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-emerald-500/20 rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500"></div>
+
+              {/* Main image container */}
+              <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-white/10">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent"></div>
                 <img
-                  src="/images/hero1.jpg"
-                  alt="Professional artisan at work"
-                  className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
+                  src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80"
+                  alt="Professional carpenter working on woodcraft"
+                  className="w-full h-auto object-cover mix-blend-luminosity opacity-80 group-hover:opacity-90 group-hover:mix-blend-normal transition-all duration-700"
+                  loading="lazy"
                 />
               </div>
 
-              {/* Floating Verification Badge */}
-              <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-5 shadow-2xl border border-gray-100 hover:scale-105 transition-transform duration-300">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center">
-                    <CheckCircle className="w-7 h-7 text-white" />
-                  </div>
-                  <div>
-                    <div className="text-xl font-bold text-gray-900">98%</div>
-                    <div className="text-sm text-gray-500">Success Rate</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating Review Card */}
-              <div className="absolute -top-4 -right-4 bg-white rounded-2xl p-4 shadow-2xl border border-gray-100 max-w-xs hover:scale-105 transition-transform duration-300">
-                <div className="flex gap-1 mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-3 h-3 fill-yellow-400 text-yellow-400"
-                    />
-                  ))}
-                </div>
-                <p className="text-sm text-gray-700 font-medium mb-2">
-                  "Excellent work quality!"
-                </p>
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-gradient-to-br from-[#224e8c] to-[#2a5ca8] rounded-full"></div>
-                  <span className="text-xs text-gray-500 font-medium">
-                    Sarah M.
-                  </span>
-                </div>
-              </div>
-
-              {/* Stats Badge */}
-              <div className="absolute bottom-20 -right-4 bg-white rounded-xl px-4 py-3 shadow-xl border border-gray-100 hover:scale-105 transition-transform duration-300">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-[#224e8c]">15+</div>
-                  <div className="text-xs text-gray-500 font-medium">
-                    Cities
-                  </div>
-                </div>
-              </div>
+              {/* Minimal accent line */}
+              <div
+                className="absolute -bottom-3 sm:-bottom-4 left-6 sm:left-8 right-6 sm:right-8 h-[2px] rounded-full opacity-60"
+                style={{
+                  background:
+                    "linear-gradient(to right, transparent, #3b82f6, #10b981, transparent)",
+                }}
+              ></div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Fade to gray-50 for next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-gray-50 pointer-events-none"></div>
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-32 bg-gradient-to-b from-transparent to-black/40 pointer-events-none"></div>
+
+      <style jsx>{`
+        @keyframes slide-up {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        .animate-slide-up {
+          animation: slide-up 0.8s ease-out;
+        }
+
+        .animate-fade-in {
+          animation: fade-in 1s ease-out;
+        }
+
+        @keyframes blink {
+          0%,
+          49% {
+            opacity: 1;
+          }
+          50%,
+          100% {
+            opacity: 0;
+          }
+        }
+
+        .animate-blink {
+          animation: blink 1s infinite;
+        }
+      `}</style>
     </section>
   );
 }

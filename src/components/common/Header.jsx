@@ -22,7 +22,7 @@ export default function PublicHeader() {
         async (position) => {
           try {
             const res = await fetch(
-              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.coords.latitude}&lon=${position.coords.longitude}&addressdetails=1&zoom=10`
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.coords.latitude}&lon=${position.coords.longitude}&addressdetails=1&zoom=10`,
             );
             const data = await res.json();
 
@@ -42,7 +42,7 @@ export default function PublicHeader() {
         () => {
           setLocation("Lagos"); // Permission denied or timeout
         },
-        { timeout: 8000, maximumAge: 600000 }
+        { timeout: 8000, maximumAge: 600000 },
       );
     };
 
@@ -53,7 +53,7 @@ export default function PublicHeader() {
   const rawGooglePhoto = user?.profilePhoto;
   const profileImage = rawGooglePhoto
     ? `https://images.weserv.nl/?url=${encodeURIComponent(
-        rawGooglePhoto
+        rawGooglePhoto,
       )}&w=96&h=96&fit=cover&mask=circle`
     : "/images/customer-avatar.jpg";
 
@@ -68,8 +68,8 @@ export default function PublicHeader() {
     if (q) {
       navigate(
         `/search?q=${encodeURIComponent(q)}&location=${encodeURIComponent(
-          location
-        )}`
+          location,
+        )}`,
       );
       setMobileMenuOpen(false);
     }
@@ -83,7 +83,7 @@ export default function PublicHeader() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+    <header className="sticky top-0 z-50 bg-[#0f0f0f] border-b border-white/10 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
@@ -91,11 +91,11 @@ export default function PublicHeader() {
             <img
               src="/images/logo.png"
               alt="ArtisanPro"
-              className="w-12 h-12 lg:w-14 lg:h-14 object-contain"
+              className="w-12 h-12 lg:w-18 lg:h-16 object-contain"
             />
-            <span className="hidden sm:block font-bold text-xl text-gray-900">
+            {/* <span className="hidden sm:block font-bold text-xl text-white">
               ArtisanPro
-            </span>
+            </span> */}
           </Link>
 
           {/* Desktop Search */}
@@ -112,7 +112,7 @@ export default function PublicHeader() {
                 name="search"
                 type="text"
                 placeholder="Plumber, electrician, AC repair..."
-                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                className="w-full pl-10 pr-4 py-3 border border-gray-700 bg-white/5 text-white placeholder-gray-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                 autoComplete="off"
               />
             </div>
@@ -121,7 +121,7 @@ export default function PublicHeader() {
           {/* Desktop Right */}
           <div className="hidden lg:flex items-center gap-6">
             {/* Location — No chevron! */}
-            <div className="flex items-center gap-2 text-gray-700">
+            <div className="flex items-center gap-2 text-gray-300">
               <MapPin size={18} className="text-blue-600" />
               <span className="text-sm font-medium">{location}</span>
             </div>
@@ -129,7 +129,7 @@ export default function PublicHeader() {
             {isAuthenticated ? (
               <button
                 onClick={goToDashboard}
-                className="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-gray-100 transition group"
+                className="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/10 transition group"
               >
                 <img
                   src={profileImage}
@@ -140,7 +140,7 @@ export default function PublicHeader() {
                   }
                 />
                 <div className="text-left">
-                  <p className="font-medium text-gray-900">
+                  <p className="font-medium text-white">
                     Hi, {user.firstName || "User"}
                   </p>
                   <p className="text-xs text-gray-500">View Dashboard</p>
@@ -150,7 +150,7 @@ export default function PublicHeader() {
               <>
                 <Link
                   to="/login"
-                  className="text-sm font-medium text-gray-700 hover:text-blue-600 px-4 py-2"
+                  className="text-sm font-medium text-gray-300 hover:text-blue-600 px-4 py-2"
                 >
                   Login
                 </Link>
@@ -209,7 +209,7 @@ export default function PublicHeader() {
             )}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 hover:bg-gray-100 rounded-lg"
+              className="p-2 hover:bg-white/10 text-white rounded-lg"
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -219,7 +219,7 @@ export default function PublicHeader() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-gray-100 bg-white">
+        <div className="lg:hidden border-t border-white/10 bg-[#0f0f0f]">
           <div className="px-4 py-5 space-y-4">
             <form onSubmit={handleSearch}>
               <div className="relative">
@@ -231,27 +231,27 @@ export default function PublicHeader() {
                   name="search"
                   type="text"
                   placeholder="Search services..."
-                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-700 bg-white/5 text-white placeholder-gray-500 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
                 />
               </div>
             </form>
 
             <div className="flex items-center gap-2 px-4 py-3">
               <MapPin size={18} className="text-blue-600" />
-              <span className="font-medium">{location}</span>
+              <span className="font-medium text-gray-300">{location}</span>
             </div>
 
             {isAuthenticated ? (
               <button
                 onClick={goToDashboard}
-                className="w-full text-left px-4 py-3 font-medium hover:bg-gray-50 rounded-lg"
+                className="w-full text-left px-4 py-3 font-medium text-white hover:bg-white/10 rounded-lg"
               >
                 Go to Dashboard
               </button>
             ) : (
               <Link
                 to="/login"
-                className="block w-full text-left px-4 py-3 font-medium hover:bg-gray-50 rounded-lg"
+                className="block w-full text-left px-4 py-3 font-medium text-white hover:bg-white/10 rounded-lg"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Login

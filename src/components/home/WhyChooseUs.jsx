@@ -1,12 +1,35 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle, Shield, Award, Users } from "lucide-react";
 
 export default function WhyChooseUs() {
+  const [isVisible, setIsVisible] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
   const [artisans, setArtisans] = useState(0);
   const [jobs, setJobs] = useState(0);
   const [rating, setRating] = useState(0);
+  const sectionRef = useRef(null);
   const statsRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -18,7 +41,7 @@ export default function WhyChooseUs() {
           animateCounter(setRating, 4.9, 2000, true);
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     if (statsRef.current) {
@@ -53,118 +76,127 @@ export default function WhyChooseUs() {
     requestAnimationFrame(step);
   };
 
+  const features = [
+    {
+      icon: Shield,
+      title: "Verified Professionals",
+      description: "Every artisan is background-checked and certified",
+    },
+    {
+      icon: Award,
+      title: "Quality Guaranteed",
+      description: "100% satisfaction guarantee on all completed work",
+    },
+    {
+      icon: Users,
+      title: "Trusted by Thousands",
+      description: "Join our community of satisfied customers",
+    },
+  ];
+
   return (
-    <section className="relative overflow-hidden bg-white py-20">
-      {/* Reduced Diagonal Background Section */}
-      <div
-        className="absolute inset-0 overflow-hidden"
-        style={{
-          clipPath: "polygon(0 0, 100% 0, 100% 85%, 0 95%)",
-          background:
-            "linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.3) 100%)",
-        }}
-      >
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1483639130939-150975af84e5?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden py-12 sm:py-16 lg:py-20"
+      style={{
+        background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
+      }}
+    >
+      {/* Subtle geometric shapes background */}
+      <div className="absolute inset-0 opacity-3">
+        <div className="absolute top-20 left-10 w-48 h-48 sm:w-64 sm:h-64 border border-white/10 rounded-full"></div>
+        <div className="absolute bottom-20 right-10 sm:right-20 w-64 h-64 sm:w-96 sm:h-96 border border-white/10 rotate-45"></div>
       </div>
 
-      {/* Accent Diagonal Shape */}
-      <div
-        className="absolute right-0 top-0 w-1/3 h-full opacity-5"
-        style={{
-          clipPath: "polygon(40% 0, 100% 0, 100% 100%, 0 100%)",
-          background: "linear-gradient(135deg, #224e8c, #2a5ca8)",
-        }}
-      />
+      {/* Very subtle accent */}
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[150px]"></div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl">
-          {/* Content */}
-          <div className="relative z-10">
-            <div className="mb-8">
-              <div className="inline-block mb-6">
-                <span
-                  className="text-sm font-bold tracking-wider uppercase"
-                  style={{ color: "#224e8c" }}
-                >
-                  Why Choose Us
-                </span>
-                <div
-                  className="h-1 w-16 mt-2 rounded-full"
-                  style={{
-                    background: "linear-gradient(to right, #224e8c, #2a5ca8)",
-                  }}
-                />
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
+          {/* Left Content */}
+          <div
+            className={`space-y-6 sm:space-y-8 transition-all duration-1000 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}
+          >
+            <div className="space-y-4 sm:space-y-6">
+              <span className="inline-block px-4 py-2 bg-blue-500/10 text-blue-400 rounded-full text-sm font-semibold border border-blue-500/20">
+                Why Choose Us
+              </span>
 
-              <h2
-                className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white"
-                style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.8)" }}
-              >
-                Quality service,
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight">
+                Quality Service,
                 <br />
-                <span className="text-yellow-300">trusted experts</span>
+                <span className="text-blue-400">Trusted Experts</span>
               </h2>
 
-              <p
-                className="text-lg md:text-xl leading-relaxed text-white font-medium"
-                style={{ textShadow: "1px 1px 6px rgba(0,0,0,0.8)" }}
-              >
+              <p className="text-base sm:text-lg text-gray-400 leading-relaxed">
                 We connect you with skilled artisans who deliver excellence.
                 Every professional is verified, every job is guaranteed.
               </p>
             </div>
 
-            {/* Stats Row with Animation */}
-            {/* <div
+            {/* Features */}
+            <div className="space-y-4">
+              {features.map((feature, idx) => {
+                const Icon = feature.icon;
+                return (
+                  <div
+                    key={idx}
+                    className={`flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+                    style={{ transitionDelay: `${0.2 + idx * 0.1}s` }}
+                  >
+                    <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-blue-600 flex items-center justify-center">
+                      <Icon size={20} className="text-white sm:w-6 sm:h-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-white font-semibold mb-1 text-sm sm:text-base">
+                        {feature.title}
+                      </h3>
+                      <p className="text-gray-400 text-xs sm:text-sm">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Stats */}
+            <div
               ref={statsRef}
-              className="grid grid-cols-3 gap-6 py-8 border-t border-b border-gray-200"
+              className="grid grid-cols-3 gap-4 sm:gap-6 pt-4 sm:pt-6"
             >
-              <div>
-                <div
-                  className="text-3xl md:text-4xl font-bold mb-1"
-                  style={{ color: "#224e8c" }}
-                >
+              <div className="text-center">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">
                   {artisans}+
                 </div>
-                <div className="text-sm text-gray-600">Artisans</div>
+                <div className="text-xs sm:text-sm text-gray-500">Artisans</div>
               </div>
-              <div>
-                <div
-                  className="text-3xl md:text-4xl font-bold mb-1"
-                  style={{ color: "#224e8c" }}
-                >
+              <div className="text-center">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">
                   {jobs >= 1000 ? `${Math.floor(jobs / 1000)}K` : jobs}+
                 </div>
-                <div className="text-sm text-gray-600">Jobs Done</div>
+                <div className="text-xs sm:text-sm text-gray-500">
+                  Jobs Done
+                </div>
               </div>
-              <div>
-                <div
-                  className="text-3xl md:text-4xl font-bold mb-1"
-                  style={{ color: "#224e8c" }}
-                >
+              <div className="text-center">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">
                   {rating}★
                 </div>
-                <div className="text-sm text-gray-600">Rating</div>
+                <div className="text-xs sm:text-sm text-gray-500">Rating</div>
               </div>
-            </div> */}
+            </div>
 
             {/* CTA */}
-            <div className="mt-10">
+            <div
+              className={`pt-2 sm:pt-4 transition-all duration-1000 delay-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+            >
               <button
-                onClick={() => alert("Get Started clicked!")}
-                className="group relative inline-flex items-center gap-2 text-white px-8 py-4 rounded-xl font-semibold overflow-hidden transition-all duration-300 hover:scale-105"
+                className="group relative inline-flex items-center gap-2 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold overflow-hidden transition-all duration-300 hover:scale-105 border border-blue-500/30 text-sm sm:text-base"
                 style={{
                   backgroundImage:
-                    "linear-gradient(to right, #224e8c, #2a5ca8)",
-                  boxShadow: "0 10px 30px -10px rgba(34, 78, 140, 0.5)",
+                    "linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)",
+                  boxShadow: "0 10px 30px -10px rgba(59, 130, 246, 0.4)",
                 }}
               >
                 <span className="relative z-10 flex items-center gap-2">
@@ -179,11 +211,35 @@ export default function WhyChooseUs() {
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
                   style={{
                     background:
-                      "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
+                      "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
                     animation: "shimmer 2s infinite",
                   }}
                 />
               </button>
+            </div>
+          </div>
+
+          {/* Right Image */}
+          <div
+            className={`relative transition-all duration-1000 delay-300 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}
+          >
+            <div className="relative group">
+              {/* Glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-emerald-500/20 rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500"></div>
+
+              {/* Main image container */}
+              <div className="relative rounded-2xl overflow-hidden border-2 border-white/10">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent"></div>
+                <img
+                  src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80"
+                  alt="Professional craftsman at work"
+                  className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Accent element */}
+              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-blue-500 to-emerald-500 rounded-2xl opacity-20 blur-xl"></div>
             </div>
           </div>
         </div>
@@ -191,8 +247,12 @@ export default function WhyChooseUs() {
 
       <style>{`
         @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
         }
       `}</style>
     </section>

@@ -1,190 +1,107 @@
 import React from "react";
-import { Apple, Play, Star, CheckCircle } from "lucide-react";
+import {
+  Apple,
+  Play,
+  Star,
+  ShieldCheck,
+  Zap,
+  Bell,
+  CheckCircle,
+} from "lucide-react";
 
 export default function DownloadApp() {
   return (
-    <section className="pt-32 pb-20 relative overflow-hidden bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
-      {/* Blob Wave Shape at Top */}
-      <div className="absolute top-0 left-0 w-full overflow-hidden leading-none">
-        <svg
-          className="relative block w-full h-20 sm:h-24"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-            className="fill-white"
-          ></path>
-        </svg>
-      </div>
+    <section className="py-24 relative overflow-hidden bg-[#0a0a0a] border-t border-white/5">
+      {/* Subtle background glow - centered behind content */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
-          <div className="text-gray-900">
-            <div className="inline-flex items-center gap-2 bg-amber-200/60 px-4 py-2 rounded-full mb-6 border border-amber-300">
-              <Star size={16} className="fill-amber-500 text-amber-600" />
-              <span className="text-sm font-semibold text-gray-800">
-                4.8 Rating | 50K+ Downloads
-              </span>
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* LEFT CONTENT */}
+          <div className="order-2 lg:order-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-8">
+              Available Now
             </div>
 
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight text-gray-900">
-              Book Artisans on the Go
+            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-white mb-6">
+              The entire community <br />
+              <span className="text-gray-500 italic">at your fingertips.</span>
             </h2>
-            <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-              Download our mobile app and book trusted professionals in seconds.
-              Get instant notifications, track your bookings, and pay
-              securely—all from your phone.
+
+            <p className="text-lg text-gray-400 mb-10 max-w-md leading-relaxed font-light">
+              Get the most out of our service with the mobile app. Instant
+              alerts, secure one-tap payments, and verified artisan tracking.
             </p>
 
-            {/* Download Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <button
-                className="bg-gradient-to-br text-white px-6 py-4 rounded-xl font-semibold hover:shadow-2xl transition-all shadow-lg flex items-center justify-center gap-3 group"
-                style={{
-                  background:
-                    "linear-gradient(to bottom right, #224e8c, #2a5ca8)",
-                }}
-              >
-                <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Apple size={24} className="text-white" />
-                </div>
+            {/* Clean Download Buttons */}
+            <div className="flex flex-wrap gap-4 mb-12">
+              <button className="flex items-center gap-3 px-6 py-3 rounded-xl bg-white text-black hover:bg-gray-200 transition-all duration-300">
+                <Apple size={20} />
                 <div className="text-left">
-                  <p className="text-xs text-blue-100">Download on the</p>
-                  <p className="text-base font-bold">App Store</p>
+                  <p className="text-[10px] uppercase font-bold leading-none">
+                    App Store
+                  </p>
                 </div>
               </button>
 
-              <button
-                className="bg-gradient-to-br text-white px-6 py-4 rounded-xl font-semibold hover:shadow-2xl transition-all shadow-lg flex items-center justify-center gap-3 group"
-                style={{
-                  background:
-                    "linear-gradient(to bottom right, #224e8c, #2a5ca8)",
-                }}
-              >
-                <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Play size={24} className="text-white fill-white" />
-                </div>
+              <button className="flex items-center gap-3 px-6 py-3 rounded-xl bg-transparent border border-white/20 text-white hover:bg-white/5 transition-all duration-300">
+                <Play size={18} className="fill-white" />
                 <div className="text-left">
-                  <p className="text-xs text-blue-100">Get it on</p>
-                  <p className="text-base font-bold">Google Play</p>
+                  <p className="text-[10px] uppercase font-bold leading-none">
+                    Play Store
+                  </p>
                 </div>
               </button>
             </div>
 
-            {/* Features */}
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="flex items-center gap-2">
-                <CheckCircle size={20} style={{ color: "#224e8c" }} />
-                <span className="text-gray-800">Instant Booking</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle size={20} style={{ color: "#224e8c" }} />
-                <span className="text-gray-800">Real-time Tracking</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle size={20} style={{ color: "#224e8c" }} />
-                <span className="text-gray-800">Secure Payments</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle size={20} style={{ color: "#224e8c" }} />
-                <span className="text-gray-800">24/7 Support</span>
-              </div>
+            {/* Minimal Feature List */}
+            <div className="flex flex-wrap gap-x-8 gap-y-4">
+              {[
+                { label: "Verified Pros", icon: ShieldCheck },
+                { label: "Live Tracking", icon: Zap },
+                { label: "24/7 Support", icon: Bell },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-2 text-gray-500">
+                  <item.icon size={14} className="text-blue-500" />
+                  <span className="text-xs font-medium uppercase tracking-widest">
+                    {item.label}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Right Phone Mockup */}
-          <div className="relative lg:block hidden">
-            <div className="relative z-10">
-              {/* Phone Frame */}
-              <div className="relative mx-auto w-72 h-[550px] bg-gray-900 rounded-[3rem] p-3 shadow-2xl">
-                {/* Notch */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-7 bg-gray-900 rounded-b-3xl z-20"></div>
+          {/* RIGHT CONTENT: App Image with Effects */}
+          <div className="order-1 lg:order-2 flex justify-center lg:justify-end relative">
+            {/* Soft Glow behind the phone image */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-[500px] bg-blue-500/20 blur-[100px] rounded-full" />
 
-                {/* Screen */}
-                <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden">
-                  {/* App Screenshot */}
-                  <div className="w-full h-full bg-gradient-to-br from-blue-50 to-white p-4">
-                    {/* Header */}
-                    <div className="flex items-center justify-between mb-6 px-2">
-                      <img
-                        src="/images/logo.png"
-                        alt="Logo"
-                        className="h-8 w-auto object-contain"
-                      />
-                      <div className="flex gap-2">
-                        <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-                      </div>
-                    </div>
-
-                    {/* Search Bar */}
-                    <div className="mb-4 px-2">
-                      <div className="bg-white rounded-xl p-3 shadow-sm border border-gray-200 flex items-center gap-2">
-                        <div className="w-4 h-4 bg-gray-300 rounded-full"></div>
-                        <div className="h-2 bg-gray-200 rounded flex-1"></div>
-                      </div>
-                    </div>
-
-                    {/* Categories */}
-                    <div className="mb-4 px-2">
-                      <div className="flex gap-2 overflow-x-auto pb-2">
-                        {["Plumbing", "Electrical", "Carpentry"].map(
-                          (cat, i) => (
-                            <div
-                              key={i}
-                              className="px-4 py-2 text-white rounded-lg text-xs font-semibold whitespace-nowrap shadow-sm"
-                              style={{
-                                background:
-                                  "linear-gradient(to right, #224e8c, #2a5ca8)",
-                              }}
-                            >
-                              {cat}
-                            </div>
-                          )
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Artisan Cards */}
-                    <div className="space-y-3 px-2">
-                      {[1, 2, 3].map((i) => (
-                        <div
-                          key={i}
-                          className="bg-white rounded-xl p-3 shadow-sm border border-gray-100"
-                        >
-                          <div className="flex gap-3">
-                            <div
-                              className="w-14 h-14 rounded-lg flex-shrink-0"
-                              style={{
-                                background:
-                                  "linear-gradient(to bottom right, #e6f0fa, #cce0f5)",
-                              }}
-                            ></div>
-                            <div className="flex-1 min-w-0">
-                              <div className="h-3 bg-gray-200 rounded w-3/4 mb-2"></div>
-                              <div className="h-2 bg-gray-100 rounded w-1/2 mb-2"></div>
-                              <div className="flex gap-1">
-                                {[...Array(5)].map((_, idx) => (
-                                  <div
-                                    key={idx}
-                                    className="w-2 h-2 bg-yellow-400 rounded-full"
-                                  ></div>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+            <div className="relative group">
+              {/* Floating Badge to fill space and add detail */}
+              {/* <div className="absolute -left-12 top-20 z-20 bg-[#111] border border-white/10 p-4 rounded-2xl shadow-2xl animate-bounce-slow">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+                    <CheckCircle className="text-blue-500 w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="text-white text-xs font-bold">
+                      Artisan Verified
+                    </p>
+                    <p className="text-gray-500 text-[10px]">Secure Identity</p>
                   </div>
                 </div>
-              </div>
-            </div>
+              </div> */}
 
-            {/* Decorative Elements */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-amber-300/30 rounded-full blur-3xl"></div>
-            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-orange-300/30 rounded-full blur-3xl"></div>
+              {/* THE APP IMAGE */}
+              <img
+                src="/images/app.png"
+                alt="ArtisanPro App"
+                className="relative z-10 w-[320px] md:w-[380px] h-auto object-contain drop-shadow-[0_35px_35px_rgba(0,0,0,0.6)]"
+              />
+
+              {/* Subtle light reflection overlay */}
+              <div className="absolute inset-0 z-15 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none rounded-[3rem]" />
+            </div>
           </div>
         </div>
       </div>

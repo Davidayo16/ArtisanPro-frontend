@@ -14,7 +14,7 @@ export default function Home() {
       <Header />
       <Hero />
       <Services />
-      <WhyChooseUs />
+      {/* <WhyChooseUs /> */}
       <HowItWorks />
       <Testimonials />
       <DownloadApp />
